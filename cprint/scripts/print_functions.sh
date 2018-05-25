@@ -78,7 +78,6 @@ all="${@:2}"
 echo -e "${color}$all ${NC}"
 
 #echo -e $'\e[32;1mbold red\e[0mplain\e[4munderlined'
-tput sgr0
 
 #
 #echo -e "\e[1m$all\e[0m"
