@@ -5,7 +5,6 @@ RED='\033[0;31m'
 NC='\033[0;0m'
 BLUE='\033[0;34m'
 
-
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
 # Green        0;32     Light Green   1;32
@@ -66,7 +65,7 @@ case $1 in
     color='\033[1;36m'
     ;;
 "WHITE")
-    color='\033[1;36m'
+    color='\033[1;37m'
     ;;
 "NC")
     color='\033[0;0m'
@@ -83,7 +82,7 @@ echo -e "${color}$all ${NC}"
 #echo -e "\e[1m$all\e[0m"
 #echo -e "Normal \e[5mBlink"
 #echo -e "Normal \e[7minverted${NC}"
-
+#
 #echo -e "${color}$all ${NC}"
 #
 #ansi()          { echo -e "\e[${1}m${*:2}\e[0m"; }

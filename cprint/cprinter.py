@@ -1,13 +1,8 @@
 import os
 import sys
+# from cprint_errors import *
 from cprint_errors import FontError, ColorError
-
-VALID_FONTS = {"italic", "bold", "normal"}
-VALID_COLORS = {"black", "red", "green", "brown", "orange",
-                "blue", "purple", "cyan", "light gray",
-                "dark gray", "light, red", "light green",
-                "yellow", "light blue", "light purple",
-                "light cyan", "white", "nc"}
+from constants import *
 
 
 def cprint(output_string: str, color="NC", font="normal")->None:
@@ -27,6 +22,7 @@ def cprint(output_string: str, color="NC", font="normal")->None:
     NC           0;37 <- (NC for No Color)
 
     :param font: selection from {italic, bold, normal}
+
     """
     try:
         if font.lower()not in VALID_FONTS:
@@ -44,7 +40,7 @@ Only available fonts:
 
     try:
         if color.lower() not in VALID_COLORS:
-            raise ColorError("""\nERROR: '{}' not a valid color
+            raise ColorError("""\nColorError: '{}' not a valid color
 Only available colors:
     Black            Dark Gray     
     Red              Light Red     
@@ -71,7 +67,7 @@ Only available colors:
         if os.path.isfile(bash_print_script):
             os.system(print_command)
         else:
-            raise FileNotFoundError("""\nERROR: {0} was
+            raise FileNotFoundError("""\nFileNotFoundError: {0} was
 not found, make sure to have installed cprint 
 properly with all its files and to not have 
 modified the scripts in a way that would corrupt the library.
@@ -83,13 +79,22 @@ modified the scripts in a way that would corrupt the library.
 
 
 if __name__ == "__main__":
-    cprint("Hello World", color="Blue")
-    cprint("Hello World", color="cyan")
-    cprint("Hello World", color="purple")
-    cprint("Hello World", color="green")
-    cprint("Hello World", color="yellow")
+    
+    cprint("Hello World", color="Black")
+    cprint("Hello World", color="Red")
+    cprint("Hello World", color="Green")
     cprint("Hello World", color="orange")
-    cprint("Hello World", color="red")
-    cprint("Hello World", color="light gray")
-    # cprint("Hello World", color="light dick")
-    cprint("Hello World")
+    cprint("Hello World", color="Blue")
+    cprint("Hello World", color="Purple")
+    cprint("Hello World", color="Cyan")
+    cprint("Hello World", color="Light Gray")
+    cprint("Hello World", color="NC")
+    cprint("Hello World", color="Dark gray")
+    cprint("Hello World", color="light Red")
+    cprint("Hello World", color="light Green")
+    cprint("Hello World", color="light Blue")
+    cprint("Hello World", color="light purple")
+    cprint("Hello World", color="light cyan")
+    cprint("Hello World", color="white")
+    # cprint("Hello World", color="fake color")
+    # cprint("Hello World", color="black")
