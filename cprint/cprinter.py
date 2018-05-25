@@ -1,20 +1,30 @@
 import os
+import string
 from cprint.cprint_errors import FontError
 from cprint.cprint_errors import ColorError
 
+VALID_FONTS = {"italic", "bold", "normal"}
 
-def cprint(input: str, color: str, font="normal")->None:
+
+def cprint(output_string: str, color="NC", font="normal")->None:
     """
-    :param input: the string that will be printed
+    :param output_string: the string that will be printed
     :param color: what color to print the string in
-    :param font: selection from {
+    :param font: selection from {italic, bold, normal}
     :return:
     """
 
-    raise FontError("""ERROR: Only available fonts:
+    if font not in VALID_FONTS:
+        raise FontError("""ERROR: Only available fonts:
     Normal,
     Bold,
     Italic,
     Strike-through,
-    Underline,
-    """)
+    Underline, """)
+
+    print_command = "scripts/temp.sh " + color.upper().replace(' ', '') + " " + output_string
+    os.system(print_command)
+
+
+if __name__ == "__main__":
+    cprint("Hello World", color="Blue")
