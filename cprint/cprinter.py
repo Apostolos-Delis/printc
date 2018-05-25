@@ -5,7 +5,7 @@ from cprint_errors import FontError, ColorError
 from constants import *
 
 
-def cprint(output_string: str, color="NC", font="normal")->None:
+def cprint(output_string: str, color=Colors.NC, font="normal")->None:
     """
     :param output_string: the string that will be printed
     :param color: what color to print the string in
@@ -39,7 +39,7 @@ Only available fonts:
         sys.exit(-1)
 
     try:
-        if color.lower() not in VALID_COLORS:
+        if color not in VALID_COLORS and not isinstance(color, Colors):
             raise ColorError("""\nColorError: '{}' not a valid color
 Only available colors:
     Black            Dark Gray     
@@ -59,9 +59,9 @@ Only available colors:
 
     bash_print_script = "scripts/print_functions.sh"
 
-    print_command = bash_print_script + " "\
-        + color.upper().replace(' ', '') \
-        + " " + output_string
+    print_command = bash_print_script + " \'"\
+        + color.__str__() \
+        + "\' " + output_string
 
     try:
         if os.path.isfile(bash_print_script):
@@ -79,22 +79,20 @@ modified the scripts in a way that would corrupt the library.
 
 
 if __name__ == "__main__":
-    
-    cprint("Hello World", color="Black")
-    cprint("Hello World", color="Red")
-    cprint("Hello World", color="Green")
-    cprint("Hello World", color="orange")
-    cprint("Hello World", color="Blue")
-    cprint("Hello World", color="Purple")
-    cprint("Hello World", color="Cyan")
-    cprint("Hello World", color="Light Gray")
-    cprint("Hello World", color="NC")
-    cprint("Hello World", color="Dark gray")
-    cprint("Hello World", color="light Red")
-    cprint("Hello World", color="light Green")
-    cprint("Hello World", color="light Blue")
-    cprint("Hello World", color="light purple")
-    cprint("Hello World", color="light cyan")
-    cprint("Hello World", color="white")
-    # cprint("Hello World", color="fake color")
-    # cprint("Hello World", color="black")
+
+    cprint("BLACK", color=Colors.BLACK)
+    cprint("RED", color=Colors.RED)
+    cprint("GREEN", color=Colors.GREEN)
+    cprint("ORANGE", color=Colors.ORANGE)
+    cprint("BLUE", color=Colors.BLUE)
+    cprint("PURPLE", color=Colors.PURPLE)
+    cprint("CYAN", color=Colors.CYAN)
+    cprint("NC", color=Colors.NC)
+    cprint("LIGHT GRAY", Colors.LIGHT_GRAY)
+    cprint("DARK GRAY", color=Colors.DARK_GRAY)
+    cprint("LIGHT RED", color=Colors.LIGHT_RED)
+    cprint("LIGHT GREEN", color=Colors.LIGHT_GREEN)
+    cprint("LIGHT BLUE", color=Colors.LIGHT_BLUE)
+    cprint("LIGHT PURPLE", color=Colors.LIGHT_PURPLE)
+    cprint("LIGHT CYAN", color=Colors.LIGHT_CYAN)
+    cprint("WHITE", color=Colors.WHITE)

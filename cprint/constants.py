@@ -14,6 +14,9 @@ from enum import Enum
 
 
 class Colors(Enum):
+    """
+    Colors enum type
+    """
     BLACK = "BLACK"
     RED = "RED"
     GREEN = "GREEN"
@@ -24,12 +27,45 @@ class Colors(Enum):
     CYAN = "CYAN"
     LIGHT_GRAY = "LIGHT GRAY"
     YELLOW = "YELLOW"
+    WHITE = "WHITE"
+    NC = "NC"
+    DARK_GRAY = "DARK GRAY"
+    LIGHT_RED = "LIGHT RED"
+    LIGHT_GREEN = "LIGHT GREEN"
+    LIGHT_BLUE = "LIGHT BLUE"
+    LIGHT_PURPLE = "LIGHT PURPLE"
+    LIGHT_CYAN = "LIGHT_CYAN"
+
+    def __str__(self):
+        """
+        When printing:
+
+        >> print(Color.RED),
+
+        It will print: 'RED' instead of <Color.RED: 'RED'>
+        If that output is desired, run the following:
+
+        >> print(Color.RED.__repr())
+        >> <Color.RED: 'RED'>
+
+        """
+        return str(str(self.__repr__()).split('\'')[1])
+
+
+class Fonts(Enum):
+    ITALIC = "ITALIC"
+    BOLD = "BOLD"
+    NORMAL = "NORMAL"
 
 
 VALID_FONTS = {"italic", "bold", "normal"}
-VALID_COLORS = {"black", "red", "green", "brown", "orange",
-                "blue", "purple", "cyan", "light gray",
-                "dark gray", "light red", "light green",
-                "yellow", "light blue", "light purple",
-                "light cyan", "white", "nc"}
+VALID_COLORS = {Colors.BLACK, Colors.RED, Colors.GREEN,
+                Colors.BROWN, Colors.ORANGE, Colors.BLUE,
+                Colors.PURPLE, Colors.CYAN, Colors.YELLOW,
+                Colors.WHITE, Colors.LIGHT_GRAY,
+                Colors.DARK_GRAY, Colors.LIGHT_GREEN}
 
+
+if __name__ == "__main__":
+    temp = Colors.BLUE.__repr__()
+    print(Colors.BLUE.__repr__())
