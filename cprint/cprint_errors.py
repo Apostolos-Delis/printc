@@ -3,7 +3,7 @@ import os
 
 class FontError(Exception):
     """
-    Error Raised when a font is used that is not in that standard errors
+    Error Raised when a font is used that is not in that standard fonts
     """
     def __init__(self, message):
 
@@ -12,7 +12,10 @@ class FontError(Exception):
 
 
 class ColorError(Exception):
-    def __init__(self,):
-        pass
+    """
+    Error Raised when a color is used that is not in that standard colors
+    """
+    def __init__(self, message):
 
-    # TODO: NEED TO FINISH
+        super().__init__(message)
+
