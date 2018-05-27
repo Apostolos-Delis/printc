@@ -2,7 +2,7 @@ import os
 import sys
 # from cprint_errors import *
 from cprint_errors import FontError, ColorError
-from constants import *
+from constants import VALID_COLORS, VALID_FONTS, Colors
 
 
 def cprint(output_string: str, color=Colors.NC, font="normal")->None:
@@ -39,7 +39,7 @@ Only available fonts:
         sys.exit(-1)
 
     try:
-        if color not in VALID_COLORS and not isinstance(color, Colors):
+        if color not in VALID_COLORS or not isinstance(color, Colors):
             raise ColorError("""\nColorError: '{}' not a valid color
 Only available colors:
     Black            Dark Gray     

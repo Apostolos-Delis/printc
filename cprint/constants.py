@@ -1,5 +1,4 @@
 from enum import Enum
-
 """
     Black        0;30     Dark Gray     1;30
     Red          0;31     Light Red     1;31
@@ -11,6 +10,13 @@ from enum import Enum
     Light Gray   0;37     White         1;37
     NC           0;37 <- (NC for No Color)
 """
+
+colors = {
+    "BLACK": "\033[0;30",
+    "RED": "\033[0;31",
+    "GREEN": "\033[0;31",
+    "NC": "\033[39m"
+}
 
 
 class Colors(Enum):
@@ -63,7 +69,10 @@ VALID_COLORS = {Colors.BLACK, Colors.RED, Colors.GREEN,
                 Colors.BROWN, Colors.ORANGE, Colors.BLUE,
                 Colors.PURPLE, Colors.CYAN, Colors.YELLOW,
                 Colors.WHITE, Colors.LIGHT_GRAY,
-                Colors.DARK_GRAY, Colors.LIGHT_GREEN}
+                Colors.DARK_GRAY, Colors.LIGHT_GREEN,
+                Colors.LIGHT_CYAN, Colors.LIGHT_BLUE,
+                Colors.LIGHT_PURPLE, Colors.NC,
+                Colors.LIGHT_RED}
 
 
 if __name__ == "__main__":
