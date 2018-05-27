@@ -68,7 +68,7 @@ Only available colors:
             os.system(print_command)
         else:
             raise FileNotFoundError("""\nFileNotFoundError: {0} was
-not found, make sure to have installed cprint 
+not found, make sure to have installed src 
 properly with all its files and to not have 
 modified the scripts in a way that would corrupt the library.
 """.format(bash_print_script))
