@@ -1,4 +1,3 @@
-from enum import Enum
 """
     Black        0;30     Dark Gray     1;30
     Red          0;31     Light Red     1;31
@@ -85,9 +84,15 @@ LIGHT_YELLOW_BG = backgrounds["LIGHT YELLOW"]
 LIGHT_BLUE_BG = backgrounds["LIGHT BLUE"]
 LIGHT_MAGENTA_BG = backgrounds["LIGHT MAGENTA"]
 LIGHT_CYAN_BG = backgrounds["LIGHT CYAN"]
-NOCOLOR_BG = backgrounds["NOCOLOR"]
-
 NO_BACKGROUND = backgrounds["NOCOLOR"]
+
+styles = {
+    "NO STYLE": "0;",
+    "BOLD": "1;",
+    "FADED": "2;",
+    "UNDERLINED": "4;",
+    "BLINKING": "5;",
+}
 
 if __name__ == "__main__":
     pass
