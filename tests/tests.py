@@ -1,24 +1,24 @@
-import src
+import printc
 import pytest
 
 
 def test_color_printing():
-    src("BLACK", color=Colors.BLACK)
-    src("RED", color=Colors.RED)
-    src("GREEN", color=Colors.GREEN)
-    src("ORANGE", color=Colors.ORANGE)
-    src("BLUE", color=Colors.BLUE)
-    src("PURPLE", color=Colors.PURPLE)
-    src("CYAN", color=Colors.CYAN)
-    src("NC", color=Colors.NC)
-    src("LIGHT GRAY", Colors.LIGHT_GRAY)
-    src("DARK GRAY", color=Colors.DARK_GRAY)
-    src("LIGHT RED", color=Colors.LIGHT_RED)
-    src("LIGHT GREEN", color=Colors.LIGHT_GREEN)
-    src("LIGHT BLUE", color=Colors.LIGHT_BLUE)
-    src("LIGHT PURPLE", color=Colors.LIGHT_PURPLE)
-    src("LIGHT CYAN", color=Colors.LIGHT_CYAN)
-    src("WHITE", color=Colors.WHITE)
+    printc("BLACK", color=Colors.BLACK)
+    printc("RED", color=Colors.RED)
+    printc("GREEN", color=Colors.GREEN)
+    printc("ORANGE", color=Colors.ORANGE)
+    printc("BLUE", color=Colors.BLUE)
+    printc("PURPLE", color=Colors.PURPLE)
+    printc("CYAN", color=Colors.CYAN)
+    printc("NC", color=Colors.NC)
+    printc("LIGHT GRAY", Colors.LIGHT_GRAY)
+    printc("DARK GRAY", color=Colors.DARK_GRAY)
+    printc("LIGHT RED", color=Colors.LIGHT_RED)
+    printc("LIGHT GREEN", color=Colors.LIGHT_GREEN)
+    printc("LIGHT BLUE", color=Colors.LIGHT_BLUE)
+    printc("LIGHT PURPLE", color=Colors.LIGHT_PURPLE)
+    printc("LIGHT CYAN", color=Colors.LIGHT_CYAN)
+    printc("WHITE", color=Colors.WHITE)
     return
 
 
