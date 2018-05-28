@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import printc
 from constants import *
 
 
@@ -19,7 +18,7 @@ class ExceptionC(Exception):
     >> try:
     >>     raise NewException(message)
     >> except NewException as e:
-    >>     ...
+    >>     print(e)
 
     will output:
     >> NewException: message
@@ -29,13 +28,18 @@ class ExceptionC(Exception):
         formating = "\033[1;49;31m"
         message = formating +\
             self.__class__.__name__ + ": " + error + END
-        print(message)
         super().__init__(message)
 
 
-class FontError(ExceptionC):
+class StyleError(ExceptionC):
     """
-    Error Raised when a font is used that is not in that standard fonts
+    Error Raised when a Style is used that is not in that standard fonts
+    Only Styles allowed are:
+    NO STYLE
+    BOLD
+    FADED
+    UNDERLINED
+    BLINKING
     """
     def __init__(self, message):
         super().__init__(message)
@@ -50,10 +54,12 @@ class ColorError(ExceptionC):
 
 
 if __name__ == "__main__":
-    # print("\033[0;41;4;2;30m hello world")
     try:
         raise ColorError("there was an error with color!")
 
     except ColorError as errno:
-        # print("ERROR: {}".format(errno))
-        print("wut")
+        print(errno)
+        try:
+            raise StyleError("YOU NEED FONTS KID")
+        except StyleError as errno:
+            print(errno)
