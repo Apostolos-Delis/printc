@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-import os
 import sys
-# from cprint_errors import *
 from printc_errors import *
-# from constants import colors
+from constants import *
+from colorstring import ColorString
 
 """
     Usage:
@@ -15,25 +14,56 @@ from printc_errors import *
 
 class printc(object):
 
-    colors = {
-        'NONE': '\033[0m',
-        'OK': '\033[94m',
-        'INFO': '\033[92m',
-        'WARNING': '\033[93m',
-        'ERR': '\033[91m',
-        'FATAL': '\033[31m',
-        'ENDC': '\033[0m'
-    }
-
-    def __init__(self, output_string: str, color="NONE", background="NONE"):
+    def __init__(self, output,
+                 color=NOCOLOR,
+                 background=NO_BACKGROUND,
+                 bold=False,
+                 faded=False,
+                 blink=False,
+                 underline=False, end='\n'):
         """
-        Prints to stdout
-        :param output_string: the string that will be printed
-        :param color: what color to print the string in
+        print to stdout in color and/or other styles
+
+        :param output: what the actual text will be
+        :param color: color of the string
+        :param background: background color of the string
+
+        Viable Colors:         | Viable Background Colors:
+        ==================================================
+            BLACK              |    BLACK_BG
+            RED                |    RED_BG
+            GREEN              |    GREEN_BG
+            YELLOW             |    YELLOW_BG
+            BLUE               |    BLUE_BG
+            PURPLE             |    PURPLE_BG
+            CYAN               |    CYAN_BG
+            LIGHT_GRAY         |    LIGHT_GRAY_BG
+            DARK_GRAY          |    DARK_GRAY_BG
+            LIGHT_RED          |    LIGHT_RED_BG
+            LIGHT_GREEN        |    LIGHT_GREEN_BG
+            LIGHT_YELLOW       |    LIGHT_YELLOW_BG
+            LIGHT_BLUE         |    LIGHT_BLUE_BG
+            LIGHT_MAGENTA      |    LIGHT_MAGENTA_BG
+            LIGHT_CYAN         |    LIGHT_CYAN_BG
+            NOCOLOR  (Default) |    NO_BACKGROUND
+
+        :param bold: boolean to make text bold or not
+        :param faded: boolean to make text faded or not
+        :param blink: boolean to make text blink or not
+        :param underline: boolean to make text underlined or not
+        :param end: just like the end parameter in print(), what
+        string will be printed at the very end of the function call.
+        Default is '\n'
+        Example:
+        >> printc("Hello World!", end="THE END")
+        ...
+        Hello World!THE END
         """
 
-        formating = "\033[3;42;31m "
-        print(formating + output_string + printc.colors[color], file=sys.stdout)
+        formatting = ColorString(self._get_repr(output), color=color, underline=underline,
+                                 bold=bold, faded=faded,
+                                 blink=blink, background=background)
+        print(formatting, file=sys.stdout)
         del self
 
     @classmethod
@@ -168,4 +198,4 @@ class printc(object):
 
 
 if __name__ == "__main__":
-    printc("hello World!")
+    printc(123, color=RED)
