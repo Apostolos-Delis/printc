@@ -102,10 +102,10 @@ Viable Colors:         | Viable Background Colors:
         self.formatted_str += string
         self.formatted_str += END
 
-    def __str__(self):
+    def __str__(self)->str:
         return self.formatted_str
 
-    def __repr__(self):
+    def __repr__(self)->str:
         return self.__str__()
 
 

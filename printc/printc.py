@@ -67,7 +67,9 @@ class printc(object):
             blink=blink,
             background=background)
 
-        print(formatting, file=sys.stdout)
+        import pprint
+        # pprint.pprint(formatting)
+        print(formatting, file=sys.stdout, end=end)
         del self
 
     @classmethod
@@ -80,59 +82,43 @@ class printc(object):
             return arg
         return repr(arg)
 
-    # @classmethod
-    # def ok(cls, arg):
-    #     """
-    #         Prints in blue to stdout
-    #     """
-    #     print(cprint.colors['OK'] + cls._get_repr(arg) + cprint.colors['ENDC'],
-    #           file=sys.stdout)
-    #
-    # @classmethod
-    # def info(cls, arg):
-    #     """
-    #         Prints in green to stdout
-    #     """
-    #     print(cprint.colors['INFO'] + cls._get_repr(arg) + cprint.colors['ENDC'],
-    #           file=sys.stdout)
+    @classmethod
+    def warning(cls, output, end='\n'):
+        """
+            Prints in yellow to stderr
+            :param output: warning message
+            :param end: what will be the termination byte of the print
+            statement, default is '\n'
+        """
+        formatting = "\033[0;38;32m" + cls._get_repr(output) + END
+        print(formatting, file=sys.stderr, end=end)
 
     @classmethod
-    def warn(cls, arg):
+    def fatal_msg(cls, output, interrupt=False):
         """
-            Prints in yellow to strerr
+            Prints in red to stderr
+            :param output: error message
+            :param interrupt: stops the program if True
+
         """
-        print(printc.colors['WARNING'] + cls._get_repr(arg) + printc.colors['ENDC'],
+
+        error_format = "\033[91m"
+        print(error_format + cls._get_repr(output) + END,
               file=sys.stderr)
-    #
-    # @classmethod
-    # def err(cls, arg, interrupt=False):
-    #     """
-    #         Prints in brown to stderr
-    #         interrupt=True: stops the program
-    #     """
-    #     print(cprint.colors['ERR'] + cls._get_repr(arg) + cprint.colors['ENDC'],
-    #           file=sys.stderr)
-    #     if interrupt:
-    #         print(cprint.colors['ERR'] + "Error: Program stopped." +
-    #               cprint.colors['ENDC'],
-    #               file=sys.stderr)
-    #         exit(1)
-    #
-    # @classmethod
-    # def fatal(cls, arg, interrupt=False):
-    #     """
-    #         Prints in red to stderr
-    #         interrupt=True: stops the program
-    #     """
-    #     print(cprint.colors['FATAL'] + cls._get_repr(arg) + cprint.colors['ENDC'],
-    #           file=sys.stderr)
-    #     if interrupt:
-    #         print(cprint.colors['FATAL'] + "Fatal error: Program stopped." +
-    #               cprint.colors['ENDC'],
-    #               file=sys.stderr)
-    #         exit(1)
+        if interrupt:
+            print(error_format + "Fatal Error: Program stopped." +
+                  END, file=sys.stderr)
+            sys.exit(-1)
+
+# TODO Change Background to hightlight
 
 
 if __name__ == "__main__":
-    printc(123, color=RED, background=BLUE_BG, bold=True,
-           underline=True, faded=True, blink=True)
+
+    # hello = {BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE_BG}, BLUE_BG: [1, 2, 3, 4]}
+    # printc(hello, color=RED, background=BLUE_BG, bold=True)
+    # printc({BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE_BG}, BLUE_BG: [1, 2, 3, 4]},
+    #        color=RED, background=LIGHT_RED_BG, bold=True,
+    #        underline=True, faded=True, blink=True)
+    printc.warning("THIS IS A WARNING:")
+    printc.fatal_msg("THIS IS FATAL", interrupt=True)
