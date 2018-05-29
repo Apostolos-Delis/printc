@@ -5,7 +5,7 @@ from colorstring import ColorString
 """
     Usage:
         >>> from printc import *
-        >>> printc.info(str)
+        >>> printc.warning(str)
         >>> ...
 """
 
@@ -14,7 +14,7 @@ class printc(object):
 
     def __init__(self, output,
                  color=NOCOLOR,
-                 background=NO_BACKGROUND,
+                 highlight=NOCOLOR,
                  bold=False,
                  faded=False,
                  blink=False,
@@ -24,26 +24,26 @@ class printc(object):
 
         :param output: what the actual text will be
         :param color: color of the string
-        :param background: background color of the string
+        :param highlight: highlight color of the string
 
-        Viable Colors:         | Viable Background Colors:
+        Viable Colors:         | Viable Highlight Colors:
         ==================================================
-            BLACK              |    BLACK_BG
-            RED                |    RED_BG
-            GREEN              |    GREEN_BG
-            YELLOW             |    YELLOW_BG
-            BLUE               |    BLUE_BG
-            PURPLE             |    PURPLE_BG
-            CYAN               |    CYAN_BG
-            LIGHT_GRAY         |    LIGHT_GRAY_BG
-            DARK_GRAY          |    DARK_GRAY_BG
-            LIGHT_RED          |    LIGHT_RED_BG
-            LIGHT_GREEN        |    LIGHT_GREEN_BG
-            LIGHT_YELLOW       |    LIGHT_YELLOW_BG
-            LIGHT_BLUE         |    LIGHT_BLUE_BG
-            LIGHT_MAGENTA      |    LIGHT_MAGENTA_BG
-            LIGHT_CYAN         |    LIGHT_CYAN_BG
-            NOCOLOR  (Default) |    NO_BACKGROUND
+            BLACK              |    BLACK
+            RED                |    RED
+            GREEN              |    GREEN
+            YELLOW             |    YELLOW
+            BLUE               |    BLUE
+            PURPLE             |    PURPLE
+            CYAN               |    CYAN
+            LIGHT_GRAY         |    LIGHT
+            DARK_GRAY          |    DARK
+            LIGHT_RED          |    LIGHT_RED
+            LIGHT_GREEN        |    LIGHT_GREEN
+            LIGHT_YELLOW       |    LIGHT_YELLOW
+            LIGHT_BLUE         |    LIGHT_BLUE
+            LIGHT_MAGENTA      |    LIGHT_MAGENTA
+            LIGHT_CYAN         |    LIGHT_CYAN
+            NOCOLOR  (Default) |    NOCOLOR
 
         :param bold: boolean to make text bold or not
         :param faded: boolean to make text faded or not
@@ -65,10 +65,8 @@ class printc(object):
             bold=bold,
             faded=faded,
             blink=blink,
-            background=background)
+            highlight=highlight)
 
-        import pprint
-        # pprint.pprint(formatting)
         print(formatting, file=sys.stdout, end=end)
         del self
 
@@ -90,7 +88,7 @@ class printc(object):
             :param end: what will be the termination byte of the print
             statement, default is '\n'
         """
-        formatting = "\033[0;38;32m" + cls._get_repr(output) + END
+        formatting = "\033[0;38;33m" + cls._get_repr(output) + END
         print(formatting, file=sys.stderr, end=end)
 
     @classmethod
@@ -110,15 +108,12 @@ class printc(object):
                   END, file=sys.stderr)
             sys.exit(-1)
 
-# TODO Change Background to hightlight
-
 
 if __name__ == "__main__":
 
-    # hello = {BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE_BG}, BLUE_BG: [1, 2, 3, 4]}
-    # printc(hello, color=RED, background=BLUE_BG, bold=True)
-    # printc({BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE_BG}, BLUE_BG: [1, 2, 3, 4]},
-    #        color=RED, background=LIGHT_RED_BG, bold=True,
-    #        underline=True, faded=True, blink=True)
+    hello = {BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE, BLUE: [1, 2, 3, 4]}}
+    printc({BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE}, LIGHT_MAGENTA: [1, 2, 3, 4]},
+           color=LIGHT_MAGENTA, highlight=NOCOLOR, bold=True,
+           underline=True, faded=False, blink=True)
     printc.warning("THIS IS A WARNING:")
     printc.fatal_msg("THIS IS FATAL", interrupt=True)

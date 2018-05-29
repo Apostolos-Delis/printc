@@ -15,6 +15,7 @@ class ExceptionC(Exception):
 
     so now when you raise a NewException:
 
+    Usage:
     >> try:
     >>     raise NewException(message)
     >> except NewException as e:

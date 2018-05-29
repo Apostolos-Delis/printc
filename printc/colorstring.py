@@ -8,7 +8,7 @@ class ColorString(object):
 
     def __init__(self, string: str,
                  color=NOCOLOR,
-                 background=NO_BACKGROUND,
+                 highlight=NOCOLOR,
                  bold=False,
                  faded=False,
                  blink=False,
@@ -19,26 +19,26 @@ class ColorString(object):
 
         :param string: what the actual text of the string will be
         :param color: color of the string
-        :param background: background color of the string
+        :param highlight: highlight color of the string
 
-        Viable Colors:         | Viable Background Colors:
+        Viable Colors:         | Viable Highlight Colors:
         ==================================================
-            BLACK              |    BLACK_BG
-            RED                |    RED_BG
-            GREEN              |    GREEN_BG
-            YELLOW             |    YELLOW_BG
-            BLUE               |    BLUE_BG
-            PURPLE             |    PURPLE_BG
-            CYAN               |    CYAN_BG
-            LIGHT_GRAY         |    LIGHT_GRAY_BG
-            DARK_GRAY          |    DARK_GRAY_BG
-            LIGHT_RED          |    LIGHT_RED_BG
-            LIGHT_GREEN        |    LIGHT_GREEN_BG
-            LIGHT_YELLOW       |    LIGHT_YELLOW_BG
-            LIGHT_BLUE         |    LIGHT_BLUE_BG
-            LIGHT_MAGENTA      |    LIGHT_MAGENTA_BG
-            LIGHT_CYAN         |    LIGHT_CYAN_BG
-            NOCOLOR  (Default) |    NO_BACKGROUND
+            BLACK              |    BLACK
+            RED                |    RED
+            GREEN              |    GREEN
+            YELLOW             |    YELLOW
+            BLUE               |    BLUE
+            PURPLE             |    PURPLE
+            CYAN               |    CYAN
+            LIGHT_GRAY         |    LIGHT
+            DARK_GRAY          |    DARK
+            LIGHT_RED          |    LIGHT_RED
+            LIGHT_GREEN        |    LIGHT_GREEN
+            LIGHT_YELLOW       |    LIGHT_YELLOW
+            LIGHT_BLUE         |    LIGHT_BLUE
+            LIGHT_MAGENTA      |    LIGHT_MAGENTA
+            LIGHT_CYAN         |    LIGHT_CYAN
+            NOCOLOR  (Default) |    NOCOLOR
 
         :param bold: boolean to make text bold or not
         :param faded: boolean to make text faded or not
@@ -46,28 +46,28 @@ class ColorString(object):
         :param underline: boolean to make text underlined or not
         """
         try:
-            if color not in colors.values() or background not in backgrounds.values():
-                raise ColorError("""The color you have
+            if not isinstance(color, Color):
+                raise ColorError("""The color: {0} and/or the highlight: {1} that you have
 selected is not a valid color.
 
-Viable Colors:         | Viable Background Colors:
+Viable Colors:         | Viable Highlight Colors:
 ==================================================
-    BLACK              |    BLACK_BG
-    RED                |    RED_BG
-    GREEN              |    GREEN_BG
-    YELLOW             |    YELLOW_BG
-    BLUE               |    BLUE_BG
-    PURPLE             |    PURPLE_BG
-    CYAN               |    CYAN_BG
-    LIGHT_GRAY         |    LIGHT_GRAY_BG
-    DARK_GRAY          |    DARK_GRAY_BG
-    LIGHT_RED          |    LIGHT_RED_BG
-    LIGHT_GREEN        |    LIGHT_GREEN_BG
-    LIGHT_YELLOW       |    LIGHT_YELLOW_BG
-    LIGHT_BLUE         |    LIGHT_BLUE_BG
-    LIGHT_MAGENTA      |    LIGHT_MAGENTA_BG
-    LIGHT_CYAN         |    LIGHT_CYAN_BG
-    NOCOLOR  (Default) |    NO_BACKGROUND""")
+    BLACK              |    BLACK
+    RED                |    RED
+    GREEN              |    GREEN
+    YELLOW             |    YELLOW
+    BLUE               |    BLUE
+    PURPLE             |    PURPLE
+    CYAN               |    CYAN
+    LIGHT_GRAY         |    LIGHT
+    DARK_GRAY          |    DARK
+    LIGHT_RED          |    LIGHT_RED
+    LIGHT_GREEN        |    LIGHT_GREEN
+    LIGHT_YELLOW       |    LIGHT_YELLOW
+    LIGHT_BLUE         |    LIGHT_BLUE
+    LIGHT_MAGENTA      |    LIGHT_MAGENTA
+    LIGHT_CYAN         |    LIGHT_CYAN
+    NOCOLOR  (Default) |    NOCOLOR""".format(color.__str__(), highlight.__str__()))
         except ColorError as error:
             print(error)
             sys.exit(-1)
@@ -97,8 +97,8 @@ Viable Colors:         | Viable Background Colors:
         if underline:
             self.formatted_str += styles["UNDERLINED"]
 
-        self.formatted_str += background
-        self.formatted_str += color
+        self.formatted_str += highlight.highlight()
+        self.formatted_str += color.color()
         self.formatted_str += string
         self.formatted_str += END
 
@@ -110,7 +110,8 @@ Viable Colors:         | Viable Background Colors:
 
 
 if __name__ == "__main__":
+
     test = ColorString("ColorString Test", color=BLUE, underline=True,
                        bold=True, faded=False,
-                       blink=True, background=RED_BG)
+                       blink=True, highlight=RED)
     print(test)
