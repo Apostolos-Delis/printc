@@ -70,8 +70,8 @@ class printc(object):
         print(formatting, file=sys.stdout, end=end)
         del self
 
-    @classmethod
-    def _get_repr(cls, arg)->str:
+    @staticmethod
+    def _get_repr(arg)->str:
         """
         :param arg: anything that will be printed with printc
         :return: the arguement's computer representation as a string
@@ -111,9 +111,16 @@ class printc(object):
 
 if __name__ == "__main__":
 
-    hello = {BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE, BLUE: [1, 2, 3, 4]}}
-    printc({BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE}, LIGHT_MAGENTA: [1, 2, 3, 4]},
-           color=LIGHT_MAGENTA, highlight=NOCOLOR, bold=True,
-           underline=True, faded=False, blink=True)
-    printc.warning("THIS IS A WARNING:")
-    printc.fatal_msg("THIS IS FATAL", interrupt=True)
+    # hello = {BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE, BLUE: [1, 2, 3, 4]}}
+    # printc({BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE}, LIGHT_MAGENTA: [1, 2, 3, 4]},
+    #        color=LIGHT_MAGENTA, highlight=CYAN, bold=True,
+    #        underline=True, faded=False, blink=True)
+    # printc.warning("THIS IS A WARNING:")
+    # printc.fatal_msg("THIS IS FATAL", interrupt=True)
+    # printc("Hello World!", color=LIGHT_MAGENTA, bold=True, underline=True, blink=False, faded=False)
+    # printc("Hello World!", color=BLUE, bold=True, underline=True, blink=False, faded=False)
+    # printc("sdfsdafasd", highlight=YELLOW)
+    # idk = printc.warning("YOU SHOULDNT DO THIS BUT YOU CAN")
+    # printc.fatal_msg("ERROR", interrupt=True)
+    printc("HELLO", color=LIGHT_MAGENTA, highlight=BLUE)
+

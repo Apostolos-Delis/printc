@@ -28,7 +28,7 @@ class Color:
     def color(self)->str:
         return self._color
 
-    def highlight(self):
+    def highlight(self)->str:
         return self._highlight
 
 

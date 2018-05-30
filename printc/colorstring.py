@@ -69,7 +69,7 @@ Viable Colors:         | Viable Highlight Colors:
     LIGHT_CYAN         |    LIGHT_CYAN
     NOCOLOR  (Default) |    NOCOLOR""".format(color.__str__(), highlight.__str__()))
         except ColorError as error:
-            print(error)
+            print(error, file=sys.stderr)
             sys.exit(-1)
 
         try:
@@ -82,7 +82,7 @@ Viable Colors:         | Viable Highlight Colors:
             if not isinstance(underline, bool):
                 raise StyleError("the parameter 'underline' must be of type 'bool'")
         except StyleError as error:
-            print(error)
+            print(error, file=sys.stderr)
             sys.exit(-1)
 
         self.formatted_str = "\033["
@@ -108,10 +108,37 @@ Viable Colors:         | Viable Highlight Colors:
     def __repr__(self)->str:
         return self.__str__()
 
+    def __add__(self, other):
+        if isinstance(other, str):
+            return self.formatted_str + other
+        elif isinstance(other, ColorString):
+            return self.formatted_str + other.formatted_str
+        else:
+            try:
+
+                raise TypeError(ColorString("TypeError: cannot add type: {0} to Colorstring"
+                                            .format(type(other)), color=RED))
+            except TypeError as error:
+                print(error, file=sys.stderr)
+
 
 if __name__ == "__main__":
 
-    test = ColorString("ColorString Test", color=BLUE, underline=True,
+    test = ColorString("ColorString Test", color=GREEN, underline=True,
                        bold=True, faded=False,
-                       blink=True, highlight=RED)
+                       blink=False, highlight=BLACK)
     print(test)
+    # import re
+    #
+    # cstring = "{{RED}}HELLO WORLD! {{BLUE}}I REALLY LIKE {{BOLD,}}THIS"
+    # prog = re.compile("{{.+?}}")
+    # m = re.findall(prog, cstring)
+    # print(m)
+    # n = re.search('.+' + m[1], cstring)
+    #
+    # temp = re.sub("{{RED}}", "\033[0;31m", cstring)
+    # temp = re.sub("{{BLUE}}", "\033[0;34m", temp)
+    # temp = re.sub("{{BOLD}}", "\033[1;34m", temp)
+    # temp += END
+    # print(temp)
+
