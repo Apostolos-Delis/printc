@@ -18,7 +18,9 @@ class printc(object):
                  bold=False,
                  faded=False,
                  blink=False,
-                 underline=False, end='\n'):
+                 underline=False,
+                 file=sys.stdout,
+                 end='\n'):
         """
         print to stdout in color and/or other styles
 
@@ -44,11 +46,11 @@ class printc(object):
             LIGHT_MAGENTA      |    LIGHT_MAGENTA
             LIGHT_CYAN         |    LIGHT_CYAN
             NOCOLOR  (Default) |    NOCOLOR
-
         :param bold: boolean to make text bold or not
         :param faded: boolean to make text faded or not
         :param blink: boolean to make text blink or not
         :param underline: boolean to make text underlined or not
+        :param file: where this prints to, default is sys.stdout
         :param end: just like the end parameter in print(), what
         string will be printed at the very end of the function call.
         Default is '\n'
@@ -67,7 +69,7 @@ class printc(object):
             blink=blink,
             highlight=highlight)
 
-        print(formatting, file=sys.stdout, end=end)
+        print(formatting, file=file, end=end)
         del self
 
     @staticmethod
@@ -112,7 +114,7 @@ class printc(object):
 if __name__ == "__main__":
 
     # hello = {BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE, BLUE: [1, 2, 3, 4]}}
-    # printc({BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE}, LIGHT_MAGENTA: [1, 2, 3, 4]},
+    # printc({BLUE:{{BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE}, LIGHT_MAGENTA: [1, 2, 3, 4]},
     #        color=LIGHT_MAGENTA, highlight=CYAN, bold=True,
     #        underline=True, faded=False, blink=True)
     # printc.warning("THIS IS A WARNING:")
@@ -122,5 +124,11 @@ if __name__ == "__main__":
     # printc("sdfsdafasd", highlight=YELLOW)
     # idk = printc.warning("YOU SHOULDNT DO THIS BUT YOU CAN")
     # printc.fatal_msg("ERROR", interrupt=True)
-    printc("HELLO", color=LIGHT_MAGENTA, highlight=BLUE)
-
+    # printc("{{UNDERLINED}}                                                                         ")
+    # printc("H{{CYAN}}E{{BOLD}}L{{BOLD:F, UNDERLINED}}{{BLUE:C}}LO{{NOCOLOR:H, RED:C}}"
+    #        "                                                                    ",
+    #        color=RED, highlight=NOCOLOR, underline=True)
+    printc("{{LIGHT_CYAN:C}}He{{CYAN}}llo {{GREEN}}World{{BOLD, UNDERLINED}} <-HEHE")
+    printc("I WILL FLASH IN BLUE", color=BLUE, blink=True, highlight=BLUE)
+    printc("                                                                         ", underline=True)
+    printc("entry 1 | entry 2 | ....                                                  ", underline=True)

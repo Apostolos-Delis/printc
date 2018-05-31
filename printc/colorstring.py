@@ -106,34 +106,35 @@ Viable Colors:         | Viable Highlight Colors:
             print(error, file=sys.stderr)
             sys.exit(-1)
 
-        self.color = NOCOLOR
-        self.highlight = NOCOLOR
-        self.bold = False
-        self.faded = False
-        self.underline = False
-        self.blink = False
+        self._color = color
+        self._highlight = highlight
+        self._bold = bold
+        self._faded = faded
+        self._underline = underline
+        self._blink = blink
 
-        string = re.sub("{{.+?}}", self._format_string, string)
+        regex_pattern = re.compile("{{.+?}}")
+        string = re.sub(regex_pattern, self._format_string, string)
 
-        self.formatted_str = "\033["
+        self._formatted_str = "\033["
         if not bold and not faded and not blink and not underline:
-            self.formatted_str += styles["NO STYLE"]
+            self._formatted_str += styles["NO STYLE"]
         if bold:
-            self.formatted_str += styles["BOLD"]
+            self._formatted_str += styles["BOLD"]
         if faded:
-            self.formatted_str += styles["FADED"]
+            self._formatted_str += styles["FADED"]
         if blink:
-            self.formatted_str += styles["BLINKING"]
+            self._formatted_str += styles["BLINKING"]
         if underline:
-            self.formatted_str += styles["UNDERLINED"]
+            self._formatted_str += styles["UNDERLINED"]
 
-        self.formatted_str += highlight.highlight()
-        self.formatted_str += color.color()
-        self.formatted_str += string
-        self.formatted_str += END
+        self._formatted_str += highlight.highlight()
+        self._formatted_str += color.color()
+        self._formatted_str += string
+        self._formatted_str += END
 
     def __str__(self)->str:
-        return self.formatted_str
+        return self._formatted_str
 
     def __repr__(self)->str:
         return self.__str__()
@@ -150,9 +151,9 @@ Viable Colors:         | Viable Highlight Colors:
         Will print 'Hello' in Red and World! normally
         """
         if isinstance(other, str):
-            return self.formatted_str + other
+            return self._formatted_str + other
         elif isinstance(other, ColorString):
-            return self.formatted_str + other.formatted_str
+            return self._formatted_str + other._formatted_str
         else:
             try:
 
@@ -166,15 +167,21 @@ Viable Colors:         | Viable Highlight Colors:
         formats a string using the double bracket notation.
         For Example:
 
-            "{{RED}}Hello {{BOLD, UNDERLINED}}World!"
+            >> "{{RED}}Hello {{BOLD, UNDERLINED}}World!"
             will make the 'Hello ' red and 'World!' will still be red
             since that wasn't changed, but it will also be bold and underlined
 
             If the user wants to define the highlight and the text both, or just wants
             a more robust format:
 
-            "{{RED:C, BLUE:H}}Hello"
+            >> "{{RED:C, BLUE:H}}Hello"
             will make the RED the text color and Blue will be the highlight color
+
+            if you want to remove a style like bold, use the following syntax:
+
+            >> "{{RED, UNDERLINED, BOLD}}Hello {{BOLD:F,BLUE}}World!"
+            this will make 'Hello', Bold, underlined, and red, while 'World!'
+            will now be Blue and underlined, but not bold
 
         :param match_obj: a re.matchobj type from the regular expressions library
         :return: the formatting necessary for colors/styles as a string that will be inserted
@@ -184,7 +191,7 @@ Viable Colors:         | Viable Highlight Colors:
         nochange = True
         object_match = match_obj.group(0).replace("{{", '')
         object_match = object_match.replace("}}", '')
-        tokens = object_match.split(', ')
+        tokens = object_match.replace(' ', '').split(',')
 
         for token in tokens:
             token = token.upper()
@@ -194,66 +201,65 @@ Viable Colors:         | Viable Highlight Colors:
                 if token[0] in ColorString._valid_colors.keys():
                     if token[1].upper() == 'C':
                         nochange = False
-                        self.color = ColorString._valid_colors[token[0]]
+                        self._color = ColorString._valid_colors[token[0]]
                     elif token[1].upper() == 'H':
                         nochange = False
-                        self.highlight = ColorString._valid_colors[token[0]]
+                        self._highlight = ColorString._valid_colors[token[0]]
+
+                elif token[0] == "BOLD" and token[1] == 'F':
+                    nochange = False
+                    self._bold = False
+
+                elif token[0] == "FADED" and token[1] == 'F':
+                    nochange = False
+                    self._faded = False
+
+                elif token[0] == "UNDERLINED" and token[1] == 'F':
+                    nochange = False
+                    self._underline = False
+
+                elif token[0] == "BLINKING" and token[1] == 'F':
+                    nochange = False
+                    self._blink = False
 
             elif token in ColorString._valid_colors.keys():
                 nochange = False
-                self.color = ColorString._valid_colors[token]
+                self._color = ColorString._valid_colors[token]
 
             elif token == "BOLD":
                 nochange = False
-                self.bold = True
+                self._bold = True
 
             elif token == "FADED":
                 nochange = False
-                self.faded = True
+                self._faded = True
 
             elif token == "UNDERLINED":
                 nochange = False
-                self.underline = True
+                self._underline = True
 
             elif token == "BLINKING":
                 nochange = False
-                self.blink = True
+                self._blink = True
 
-        if not self.bold and not self.faded and not self.blink and not self.underline:
+        if not self._bold and not self._faded and not self._blink and not self._underline:
             formating += styles["NO STYLE"]
-        if self.bold:
+        if self._bold:
             formating += styles["BOLD"]
-        if self.faded:
+        if self._faded:
             formating += styles["FADED"]
-        if self.blink:
+        if self._blink:
             formating += styles["BLINKING"]
-        if self.underline:
+        if self._underline:
             formating += styles["UNDERLINED"]
 
-        formating += self.highlight.highlight()
-        formating += self.color.color()
+        formating += self._highlight.highlight()
+        formating += self._color.color()
 
         if nochange:
             return match_obj.group()
         else:
             return formating
-
-
-def dashrepl(matchobj):
-
-    color_formating = "\033["
-    color = NOCOLOR
-    highlight = NOCOLOR
-    faded = False
-    object_match = matchobj.group(0).replace("{{", '')
-    object_match = object_match.replace("}}", '')
-    tokens = object_match.split(', ')
-
-    print(tokens)
-    if matchobj.group(0) == "{{RED}}":
-        return 'RED'
-    else:
-        return '-'
 
 
 if __name__ == "__main__":
@@ -264,9 +270,7 @@ if __name__ == "__main__":
     # print(test)
     import re
 
-    cstring = "{{BLUE:H, BLUE:C, RED, BOLD, BLACK, SDS, UNDERLINED}}HELLO WORLD! I REALLY LIKE {{BOLD,}}THIS"
-    test = ColorString(cstring)
-    print(test)
+    # print(test)
     # prog = re.compile("{{.+?}}")
     # m = re.findall(prog, cstring)
     # print(m)
