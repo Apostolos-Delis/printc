@@ -2,9 +2,30 @@
 from constants import *
 from printc_errors import ColorError, StyleError
 import sys
+import re
 
 
 class ColorString(object):
+
+    _valid_colors = {
+        BLACK.__str__(): BLACK,
+        RED.__str__(): RED,
+        GREEN.__str__(): GREEN,
+        YELLOW.__str__(): YELLOW,
+        BLUE.__str__(): BLUE,
+        PURPLE.__str__(): PURPLE,
+        CYAN.__str__(): CYAN,
+        LIGHT_GRAY.__str__(): LIGHT_GRAY,
+        DARK_GRAY.__str__(): DARK_GRAY,
+        LIGHT_RED.__str__(): LIGHT_RED,
+        LIGHT_GREEN.__str__(): LIGHT_GREEN,
+        LIGHT_YELLOW.__str__(): LIGHT_YELLOW,
+        LIGHT_BLUE.__str__(): LIGHT_BLUE,
+        LIGHT_MAGENTA.__str__(): LIGHT_MAGENTA,
+        LIGHT_CYAN.__str__(): LIGHT_CYAN,
+        WHITE.__str__(): WHITE,
+        NOCOLOR.__str__(): NOCOLOR
+    }
 
     def __init__(self, string: str,
                  color=NOCOLOR,
@@ -85,6 +106,15 @@ Viable Colors:         | Viable Highlight Colors:
             print(error, file=sys.stderr)
             sys.exit(-1)
 
+        self.color = NOCOLOR
+        self.highlight = NOCOLOR
+        self.bold = False
+        self.faded = False
+        self.underline = False
+        self.blink = False
+
+        string = re.sub("{{.+?}}", self._format_string, string)
+
         self.formatted_str = "\033["
         if not bold and not faded and not blink and not underline:
             self.formatted_str += styles["NO STYLE"]
@@ -109,6 +139,16 @@ Viable Colors:         | Viable Highlight Colors:
         return self.__str__()
 
     def __add__(self, other):
+        """
+        :param other: must be either of type ColorString ot str
+        :return: a str with all the formats of a ColorString (if Any)
+
+        So if the ColorString was defined to be red, then for example:
+        >> print(Colorstring("Hello", color=RED) + " World!")
+        Hello World!
+
+        Will print 'Hello' in Red and World! normally
+        """
         if isinstance(other, str):
             return self.formatted_str + other
         elif isinstance(other, ColorString):
@@ -121,16 +161,112 @@ Viable Colors:         | Viable Highlight Colors:
             except TypeError as error:
                 print(error, file=sys.stderr)
 
+    def _format_string(self, match_obj):
+        """
+        formats a string using the double bracket notation.
+        For Example:
+
+            "{{RED}}Hello {{BOLD, UNDERLINED}}World!"
+            will make the 'Hello ' red and 'World!' will still be red
+            since that wasn't changed, but it will also be bold and underlined
+
+            If the user wants to define the highlight and the text both, or just wants
+            a more robust format:
+
+            "{{RED:C, BLUE:H}}Hello"
+            will make the RED the text color and Blue will be the highlight color
+
+        :param match_obj: a re.matchobj type from the regular expressions library
+        :return: the formatting necessary for colors/styles as a string that will be inserted
+        back into the initial string that was called with re.sub()
+        """
+        formating = "\033["
+        nochange = True
+        object_match = match_obj.group(0).replace("{{", '')
+        object_match = object_match.replace("}}", '')
+        tokens = object_match.split(', ')
+
+        for token in tokens:
+            token = token.upper()
+            if ':' in token:
+                token = token.split(':')
+
+                if token[0] in ColorString._valid_colors.keys():
+                    if token[1].upper() == 'C':
+                        nochange = False
+                        self.color = ColorString._valid_colors[token[0]]
+                    elif token[1].upper() == 'H':
+                        nochange = False
+                        self.highlight = ColorString._valid_colors[token[0]]
+
+            elif token in ColorString._valid_colors.keys():
+                nochange = False
+                self.color = ColorString._valid_colors[token]
+
+            elif token == "BOLD":
+                nochange = False
+                self.bold = True
+
+            elif token == "FADED":
+                nochange = False
+                self.faded = True
+
+            elif token == "UNDERLINED":
+                nochange = False
+                self.underline = True
+
+            elif token == "BLINKING":
+                nochange = False
+                self.blink = True
+
+        if not self.bold and not self.faded and not self.blink and not self.underline:
+            formating += styles["NO STYLE"]
+        if self.bold:
+            formating += styles["BOLD"]
+        if self.faded:
+            formating += styles["FADED"]
+        if self.blink:
+            formating += styles["BLINKING"]
+        if self.underline:
+            formating += styles["UNDERLINED"]
+
+        formating += self.highlight.highlight()
+        formating += self.color.color()
+
+        if nochange:
+            return match_obj.group()
+        else:
+            return formating
+
+
+def dashrepl(matchobj):
+
+    color_formating = "\033["
+    color = NOCOLOR
+    highlight = NOCOLOR
+    faded = False
+    object_match = matchobj.group(0).replace("{{", '')
+    object_match = object_match.replace("}}", '')
+    tokens = object_match.split(', ')
+
+    print(tokens)
+    if matchobj.group(0) == "{{RED}}":
+        return 'RED'
+    else:
+        return '-'
+
 
 if __name__ == "__main__":
 
     test = ColorString("ColorString Test", color=GREEN, underline=True,
                        bold=True, faded=False,
                        blink=False, highlight=BLACK)
+    # print(test)
+    import re
+
+    cstring = "{{BLUE:H, BLUE:C, RED, BOLD, BLACK, SDS, UNDERLINED}}HELLO WORLD! I REALLY LIKE {{BOLD,}}THIS"
+    test = ColorString(cstring)
     print(test)
-    # import re
-    #
-    # cstring = "{{RED}}HELLO WORLD! {{BLUE}}I REALLY LIKE {{BOLD,}}THIS"
     # prog = re.compile("{{.+?}}")
     # m = re.findall(prog, cstring)
     # print(m)
@@ -141,4 +277,5 @@ if __name__ == "__main__":
     # temp = re.sub("{{BOLD}}", "\033[1;34m", temp)
     # temp += END
     # print(temp)
+    # print(re.sub("{{.+?}}", dashrepl, cstring))
 
