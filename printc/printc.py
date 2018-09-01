@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import sys
 from constants import *
 from colorstring import ColorString
@@ -112,23 +112,4 @@ class printc(object):
 
 
 if __name__ == "__main__":
-
-    # hello = {BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE, BLUE: [1, 2, 3, 4]}}
-    # printc({BLUE:{{BLUE: {RED: GREEN}, BLACK: {RED: GREEN, BLACK: BLUE}, LIGHT_MAGENTA: [1, 2, 3, 4]},
-    #        color=LIGHT_MAGENTA, highlight=CYAN, bold=True,
-    #        underline=True, faded=False, blink=True)
-    # printc.warning("THIS IS A WARNING:")
-    # printc.fatal_msg("THIS IS FATAL", interrupt=True)
-    # printc("Hello World!", color=LIGHT_MAGENTA, bold=True, underline=True, blink=False, faded=False)
-    # printc("Hello World!", color=BLUE, bold=True, underline=True, blink=False, faded=False)
-    # printc("sdfsdafasd", highlight=YELLOW)
-    # idk = printc.warning("YOU SHOULDNT DO THIS BUT YOU CAN")
-    # printc.fatal_msg("ERROR", interrupt=True)
-    # printc("{{UNDERLINED}}                                                                         ")
-    # printc("H{{CYAN}}E{{BOLD}}L{{BOLD:F, UNDERLINED}}{{BLUE:C}}LO{{NOCOLOR:H, RED:C}}"
-    #        "                                                                    ",
-    #        color=RED, highlight=NOCOLOR, underline=True)
-    printc("{{LIGHT_CYAN:C}}He{{CYAN}}llo {{GREEN}}World{{BOLD, UNDERLINED}} <-HEHE")
-    printc("I WILL FLASH IN BLUE", color=BLUE, blink=True, highlight=BLUE)
-    printc("                                                                         ", underline=True)
-    printc("entry 1 | entry 2 | ....                                                  ", underline=True)
+    pass
