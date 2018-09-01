@@ -88,7 +88,7 @@ Viable Colors:         | Viable Highlight Colors:
     LIGHT_BLUE         |    LIGHT_BLUE
     LIGHT_MAGENTA      |    LIGHT_MAGENTA
     LIGHT_CYAN         |    LIGHT_CYAN
-    NOCOLOR  (Default) |    NOCOLOR""".format(color.__str__(), highlight.__str__()))
+    NOCOLOR  (Default) |    NOCOLOR""".format(color.__repr__(), highlight.__repr__()))
         except ColorError as error:
             print(error, file=sys.stderr)
             sys.exit(-1)

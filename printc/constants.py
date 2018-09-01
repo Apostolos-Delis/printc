@@ -16,7 +16,7 @@ class Color:
         return self._name
 
     def __repr__(self)->str:
-        return self.__str__()
+        return "Color Object: <" + self._name + ">"
 
     def color(self)->str:
         return self._color
