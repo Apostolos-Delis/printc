@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+
 import sys
 from constants import *
 from colorstring import ColorString
+
 """
     Usage:
         >>> from printc import *
@@ -112,4 +114,5 @@ class printc(object):
 
 
 if __name__ == "__main__":
+    printc("Hello World", color=YELLOW, bold=True, blink=True, underline=True, highlight=NOCOLOR)
     pass

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from constants import *
 from printc_errors import ColorError, StyleError
 import sys
@@ -263,23 +263,4 @@ Viable Colors:         | Viable Highlight Colors:
 
 
 if __name__ == "__main__":
-
-    test = ColorString("ColorString Test", color=GREEN, underline=True,
-                       bold=True, faded=False,
-                       blink=False, highlight=BLACK)
-    # print(test)
-    import re
-
-    # print(test)
-    # prog = re.compile("{{.+?}}")
-    # m = re.findall(prog, cstring)
-    # print(m)
-    # n = re.search('.+' + m[1], cstring)
-    #
-    # temp = re.sub("{{RED}}", "\033[0;31m", cstring)
-    # temp = re.sub("{{BLUE}}", "\033[0;34m", temp)
-    # temp = re.sub("{{BOLD}}", "\033[1;34m", temp)
-    # temp += END
-    # print(temp)
-    # print(re.sub("{{.+?}}", dashrepl, cstring))
-
+    pass

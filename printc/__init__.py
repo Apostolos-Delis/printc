@@ -2,7 +2,6 @@
 from .printc import *
 from .constants import *
 from .printc_errors import *
-from .colorstring import *
 """
     This module give to possibility to print with interesting formats
 """

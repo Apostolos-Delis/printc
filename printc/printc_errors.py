@@ -26,7 +26,7 @@ class ExceptionC(Exception):
     in red
     """
     def __init__(self, error):
-        formating = "\033[0;49;31m"
+        formating = "\033[31m"
         message = formating +\
             self.__class__.__name__ + ": " + error + END
         super().__init__(message)
