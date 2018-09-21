@@ -114,5 +114,4 @@ class printc(object):
 
 
 if __name__ == "__main__":
-    printc("Hello World", color=YELLOW, bold=True, blink=True, underline=True, highlight=NOCOLOR)
     pass

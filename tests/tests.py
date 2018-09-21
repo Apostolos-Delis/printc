@@ -52,6 +52,13 @@ def test_all_highlights(content):
     printc(content, highlight=WHITE)
     return
 
+def test_all_styles(content):
+    printc(content, bold=True)
+    printc(content, blink=True)
+    printc(content, underline=True)
+    printc(content, faded=True)
+    return
+
 def test_ascii_str():
     """
     Tests printc with a really easy string that it 
@@ -62,6 +69,7 @@ def test_ascii_str():
     simple_string = "Hello world in Color!"
     test_all_colors(simple_string)
     test_all_highlights(simple_string)
+    test_all_styles(simple_string)
     return
 
 def test_unicode_str():
@@ -70,8 +78,9 @@ def test_unicode_str():
     color support. 
     """
     unicode_string = u"'''&éאָדки((-편è__çίρετà)==)^邮政编^¨¨"
-    test_all_colors(simple_string)
-    test_all_highlights(simple_string)
+    test_all_colors(unicode_string)
+    test_all_highlights(unicode_string)
+    test_all_styles(unicode_string) 
     return
 
 def print_numbers():
@@ -80,6 +89,7 @@ def print_numbers():
     """
     test_all_colors(1234567890)
     test_all_highlights(1234567890)
+    test_all_styles(1234567890)
     return 
 
 def print_list():
@@ -89,6 +99,7 @@ def print_list():
     l = ["Hello", 123, "邮政编", [1, 2, "World"]]
     test_all_colors(l)
     test_all_highlights(l)
+    test_all_styles(l)
 
 def print_tuple():
     """
@@ -97,6 +108,7 @@ def print_tuple():
     t = ("Hello", 123, "邮政编", (1, 2, "World"))
     test_all_colors(t)
     test_all_highlights(t)
+    test_all_styles(t)
 
 def print_object():
     """
@@ -104,7 +116,7 @@ def print_object():
     """
     test_all_colors(TestClass())
     test_all_highlights(TestClass())
+    test_all_styles(TestClass())
 
 if __name__ == "__main__":
-    taa = 
-    test_ascii_str()
+    pass
