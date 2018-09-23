@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from constants import *
+# coding: utf8
 
 
 class ExceptionC(Exception):

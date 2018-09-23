@@ -1,4 +1,4 @@
-
+# coding: utf8
 
 END = '\033[0m'
 
