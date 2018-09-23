@@ -14,15 +14,13 @@ from colorstring import ColorString
 
 class printc(object):
 
-    def __init__(self, output,
+    def __init__(self, output, *args,
                  color=NOCOLOR,
                  highlight=NOCOLOR,
                  bold=False,
                  faded=False,
                  blink=False,
-                 underline=False,
-                 file=sys.stdout,
-                 end='\n'):
+                 underline=False, **kwargs):
         """
         print to stdout in color and/or other styles
 
@@ -71,7 +69,7 @@ class printc(object):
             blink=blink,
             highlight=highlight)
 
-        print(formatting, file=file, end=end)
+        print(formatting, *args, **kwargs)
         del self
 
     @staticmethod
