@@ -6,6 +6,7 @@ Different unit tests for the printc library
 from printc import *
 import pytest
 
+
 class TestClass(object):
     
     def __init__(self):
@@ -13,6 +14,7 @@ class TestClass(object):
 
     def __repr__():
         return self.name 
+
 
 def test_all_colors(content):
     printc(content, color=BLACK)
@@ -100,6 +102,7 @@ def print_list():
     test_all_colors(l)
     test_all_highlights(l)
     test_all_styles(l)
+    return
 
 def print_tuple():
     """
@@ -109,6 +112,7 @@ def print_tuple():
     test_all_colors(t)
     test_all_highlights(t)
     test_all_styles(t)
+    return  
 
 def print_object():
     """
@@ -117,6 +121,5 @@ def print_object():
     test_all_colors(TestClass())
     test_all_highlights(TestClass())
     test_all_styles(TestClass())
+    return
 
-if __name__ == "__main__":
-    pass
