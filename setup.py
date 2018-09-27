@@ -15,5 +15,5 @@ setup(
                      'and more!',
     url="https://github.com/Apostolos-Delis/printc",
     include_package_data=True,
-    packages=['printc', "printc_errors", "constants", "colorstring"],
+    packages=['printc.printc', "printc.printc_errors", "printc.constants", "printc.colorstring"],
 )
