@@ -8,12 +8,12 @@ import pytest
 
 
 class TestClass(object):
-    
+
     def __init__(self):
         self.name = "TestClass"
 
     def __repr__():
-        return self.name 
+        return self.name
 
 
 def test_all_colors(content):
@@ -63,8 +63,8 @@ def test_all_styles(content):
 
 def test_ascii_str():
     """
-    Tests printc with a really easy string that it 
-    should pass. 
+    Tests printc with a really easy string that it
+    should pass.
     If it fails this case, it will most likely fail everything
     else.
     """
@@ -76,13 +76,13 @@ def test_ascii_str():
 
 def test_unicode_str():
     """
-    Test with a unicode string to make sure that there is still 
-    color support. 
+    Test with a unicode string to make sure that there is still
+    color support.
     """
     unicode_string = u"'''&éאָדки((-편è__çίρετà)==)^邮政编^¨¨"
     test_all_colors(unicode_string)
     test_all_highlights(unicode_string)
-    test_all_styles(unicode_string) 
+    test_all_styles(unicode_string)
     return
 
 def print_numbers():
@@ -92,7 +92,7 @@ def print_numbers():
     test_all_colors(1234567890)
     test_all_highlights(1234567890)
     test_all_styles(1234567890)
-    return 
+    return
 
 def print_list():
     """
@@ -112,7 +112,7 @@ def print_tuple():
     test_all_colors(t)
     test_all_highlights(t)
     test_all_styles(t)
-    return  
+    return
 
 def print_object():
     """

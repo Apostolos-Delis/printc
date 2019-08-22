@@ -2,7 +2,7 @@
 # coding: utf8
 
 """
-__init__.py
+main.py
 Date: 08-21-2019
 
 Description:

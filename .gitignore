@@ -6,48 +6,9 @@ __pycache__/
 **/tmp/
 **/temp.*
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-MANIFEST
-*.manifest
-*.spec
-
-pip-log.txt
-
-htmlcov/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.xml
-.hypothesis/
-.pytest_cache/
-
-# pyenv
-.python-version
-
 # Environments
 .env
 .venv
 env/
 venv/
 ENV/
-
