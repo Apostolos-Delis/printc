@@ -11,7 +11,6 @@ Description: Implementation of CodeGen class that generates ANSI codes
 
 from .constants import COLORS, STYLES
 from .constants import START
-from .errors import InvalidColor
 
 
 class CodeGen:  # pylint: disable=too-many-instance-attributes

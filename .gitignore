@@ -6,6 +6,7 @@ __pycache__/
 **/tmp/
 **/temp.*
 .cache/*
+temp.py
 
 # Environments
 .env
