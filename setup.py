@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+setup script for installing printc on a computer
+"""
+
 from distutils.core import setup
 
 import printc
@@ -11,9 +15,10 @@ setup(
     author='Apostolos Delis',
     author_email='apost.delis@gmail.com',
     description='Printing and debugging with color',
-    long_description='Printing and debugging with color as well as formatting strings with underlines, blinking'
+    long_description='Printing and debugging with color as well as formatting'
+                     'strings with underlines, blinking'
                      'and more!',
     url="https://github.com/Apostolos-Delis/printc",
     include_package_data=True,
-    packages=['printc.printc', "printc.printc_errors", "printc.constants", "printc.colorstring"],
+    packages=['printc']
 )

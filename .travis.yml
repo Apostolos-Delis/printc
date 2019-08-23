@@ -1,7 +1,9 @@
 language: python
 python:
     - "3.6"
+    - "3.7"
+    - "3.8"
 # Command to run tests
 install:
-    - python setup.py -q install
-script: "python tests/tests.py"
+    - python3 setup.py -q install
+script: "python3 tests/tests.py"
