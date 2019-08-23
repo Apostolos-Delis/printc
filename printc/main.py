@@ -8,7 +8,7 @@ Date: 08-22-2019
 Description: defines the printc class
 
 Usage:
-    >>> from printc import *
+    >>> from printc import printc
     >>> printc.warning(str)
     >>> ...
 """
@@ -17,9 +17,10 @@ import sys
 
 from .colorstring import ColorString
 from .constants import COLOR_CODES, END
+from .errors import PrintcFatalException
 
 
-class printc:  # pylint disable: invalid-name
+class printc:  # pylint: disable=invalid-name
     """
     the printc object defines the main printc method in its constructor, as
     well as supporting all the differnet
@@ -78,23 +79,18 @@ class printc:  # pylint disable: invalid-name
         """
         orange = "\033[38;5;208m"
         formatting = f"{orange}{cls._get_repr(output)}{END}"
-        print(formatting, file=sys.stderr, *args, **kwargs)
+        cls(formatting, file=sys.stderr, *args, **kwargs)
 
     @classmethod
-    def fatal_msg(cls, output, interrupt=False):
+    def fatal(cls, output, interrupt=False):
         """
         Prints in red to stderr
         :param output: error message
         :param interrupt: stops the program if True
         """
-        error_format = "\033[91m"
-        print(error_format + cls._get_repr(output) + END, file=sys.stderr)
+        cls(cls._get_repr(output), color='red', bold=True, file=sys.stderr)
         if interrupt:
-            print(
-                error_format + "Fatal Error: Program stopped." + END,
-                file=sys.stderr,
-            )
-            sys.exit(-1)
+            raise PrintcFatalException("Program Terminated")
 
 
 if __name__ == "__main__":

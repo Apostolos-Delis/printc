@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf8
 
-# pylint: disable: too-many-instance-attributes
-# pylint: disable: too-many-arguments
 
 """
 code_gen.py
@@ -11,20 +9,16 @@ Date: 08-21-2019
 Description: Implementation of CodeGen class that generates ANSI codes
 """
 
-
-# if __name__ == "__main__":
 from .constants import COLORS, STYLES
 from .constants import START
-# else:
-    # from .constants import COLORS, STYLES
-    # from .constants import START
+from .errors import InvalidColor
 
 
-class CodeGen:
+class CodeGen:  # pylint: disable=too-many-instance-attributes
     """
     Description: generates an ANSI code based on its member variables
     """
-
+    # pylint: disable=too-many-arguments
     def __init__(self, color="none", highlight="none", bold=False,
                  underline=False, fade=False, blink=False):
         color = color.lower()

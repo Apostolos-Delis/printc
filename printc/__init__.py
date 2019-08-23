@@ -6,6 +6,7 @@ Import the definitions for the printc module
 """
 
 from .main import printc
+from .errors import *
 
 __version__ = 'v1.0'
 
