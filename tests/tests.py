@@ -3,63 +3,76 @@
 """
 Different unit tests for the printc library
 """
-from printc import *
+
 import pytest
 
+from printc import printc
 
-class TestClass(object):
+
+class TestClass:
+    """
+    Dummy Test Class
+    """
 
     def __init__(self):
         self.name = "TestClass"
 
-    def __repr__():
+    def __repr__(self):
         return self.name
 
 
-def test_all_colors(content):
-    printc(content, color=BLACK)
-    printc(content, color=RED)
-    printc(content, color=GREEN)
-    printc(content, color=ORANGE)
-    printc(content, color=BLUE)
-    printc(content, color=PURPLE)
-    printc(content, color=CYAN)
-    printc(content, color=NC)
-    printc(content, color=LIGHT_GRAY)
-    printc(content, color=DARK_GRAY)
-    printc(content, color=LIGHT_RED)
-    printc(content, color=LIGHT_GREEN)
-    printc(content, color=LIGHT_BLUE)
-    printc(content, color=LIGHT_PURPLE)
-    printc(content, color=LIGHT_CYAN)
-    printc(content, color=WHITE)
-    return
+def print_all_colors(content):
+    """
+    Prints the content with every type of colored text
+    """
+    printc(content, color="black")
+    printc(content, color="red")
+    printc(content, color="green")
+    printc(content, color="yellow")
+    printc(content, color="blue")
+    printc(content, color="purple")
+    printc(content, color="cyan")
+    printc(content, color="none")
+    printc(content, color="light gray")
+    printc(content, color="dark gray")
+    printc(content, color="light red")
+    printc(content, color="light green")
+    printc(content, color="light blue")
+    printc(content, color="light purple")
+    printc(content, color="light cyan")
+    printc(content, color="white")
 
-def test_all_highlights(content):
-    printc(content, highlight=BLACK)
-    printc(content, highlight=RED)
-    printc(content, highlight=GREEN)
-    printc(content, highlight=ORANGE)
-    printc(content, highlight=BLUE)
-    printc(content, highlight=PURPLE)
-    printc(content, highlight=CYAN)
-    printc(content, highlight=NC)
-    printc(content, highlight=LIGHT_GRAY)
-    printc(content, highlight=DARK_GRAY)
-    printc(content, highlight=LIGHT_RED)
-    printc(content, highlight=LIGHT_GREEN)
-    printc(content, highlight=LIGHT_BLUE)
-    printc(content, highlight=LIGHT_PURPLE)
-    printc(content, highlight=LIGHT_CYAN)
-    printc(content, highlight=WHITE)
-    return
 
-def test_all_styles(content):
+def print_all_highlights(content):
+    """
+    Print the Content with every type of background color
+    """
+    printc(content, highlight="black")
+    printc(content, highlight="red")
+    printc(content, highlight="green")
+    printc(content, highlight="yellow")
+    printc(content, highlight="blue")
+    printc(content, highlight="purple")
+    printc(content, highlight="cyan")
+    printc(content, highlight="none")
+    printc(content, highlight="light gray")
+    printc(content, highlight="dark gray")
+    printc(content, highlight="light red")
+    printc(content, highlight="light green")
+    printc(content, highlight="light blue")
+    printc(content, highlight="light purple")
+    printc(content, highlight="light cyan")
+    printc(content, highlight="white")
+
+
+def print_all_styles(content):
+    """Test all 4 different types of styles along with various combinations"""
     printc(content, bold=True)
     printc(content, blink=True)
     printc(content, underline=True)
-    printc(content, faded=True)
-    return
+    printc(content, fade=True)
+    printc(content, bold=True, underline=True, blink=True, fade=True)
+
 
 def test_ascii_str():
     """
@@ -69,10 +82,10 @@ def test_ascii_str():
     else.
     """
     simple_string = "Hello world in Color!"
-    test_all_colors(simple_string)
-    test_all_highlights(simple_string)
-    test_all_styles(simple_string)
-    return
+    print_all_colors(simple_string)
+    print_all_highlights(simple_string)
+    print_all_styles(simple_string)
+
 
 def test_unicode_str():
     """
@@ -80,46 +93,44 @@ def test_unicode_str():
     color support.
     """
     unicode_string = u"'''&éאָדки((-편è__çίρετà)==)^邮政编^¨¨"
-    test_all_colors(unicode_string)
-    test_all_highlights(unicode_string)
-    test_all_styles(unicode_string)
-    return
+    print_all_colors(unicode_string)
+    print_all_highlights(unicode_string)
+    print_all_styles(unicode_string)
+
 
 def print_numbers():
     """
     Test to see if printc has numeric support
     """
-    test_all_colors(1234567890)
-    test_all_highlights(1234567890)
-    test_all_styles(1234567890)
-    return
+    print_all_colors(1234567890)
+    print_all_highlights(1234567890)
+    print_all_styles(1234567890)
+
 
 def print_list():
     """
     Test to see if list printing is supported
     """
-    l = ["Hello", 123, "邮政编", [1, 2, "World"]]
-    test_all_colors(l)
-    test_all_highlights(l)
-    test_all_styles(l)
-    return
+    test_list = ["Hello", 123, "邮政编", [1, 2, "World"]]
+    print_all_colors(test_list)
+    print_all_highlights(test_list)
+    print_all_styles(test_list)
 
-def print_tuple():
+
+def test_print_tuple():
     """
     Test to see if tuple printing is supported
     """
-    t = ("Hello", 123, "邮政编", (1, 2, "World"))
-    test_all_colors(t)
-    test_all_highlights(t)
-    test_all_styles(t)
-    return
+    test_tup = ("Hello", 123, "邮政编", (1, 2, "World"))
+    print_all_colors(test_tup)
+    print_all_highlights(test_tup)
+    print_all_styles(test_tup)
 
-def print_object():
+
+def test_print_object():
     """
     Test to see if printc works on objects
     """
-    test_all_colors(TestClass())
-    test_all_highlights(TestClass())
-    test_all_styles(TestClass())
-    return
-
+    print_all_colors(TestClass())
+    print_all_highlights(TestClass())
+    print_all_styles(TestClass())

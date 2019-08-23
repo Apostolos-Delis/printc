@@ -13,6 +13,7 @@ START = "\033["
 END = "\033[0m"
 
 COLOR_CODES = {
+    "k": "black",
     "b": "blue",
     "r": "red",
     "g": "green",
@@ -45,7 +46,7 @@ COLORS = {
     "light green": ("92m", "102;"),
     "light yellow": ("93m", "103;"),
     "light blue": ("94m", "104;"),
-    "light magenta": ("95m", "105;"),
+    "light purple": ("95m", "105;"),
     "light cyan": ("96m", "106;"),
     "white": ("97m", "107;"),
     "none": ("39m", "49;"),

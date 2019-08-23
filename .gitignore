@@ -5,6 +5,7 @@ __pycache__/
 **/.idea/
 **/tmp/
 **/temp.*
+.cache/*
 
 # Environments
 .env

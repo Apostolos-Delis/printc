@@ -11,12 +11,8 @@ escape codes in correct locations
 
 import re
 
-if __name__ == "__main__":
-    from code_gen import CodeGen
-    from constants import END, COLORS
-else:
-    from .code_gen import CodeGen
-    from .constants import END, COLORS
+from .code_gen import CodeGen
+from .constants import END, COLORS
 
 
 class ColorString:

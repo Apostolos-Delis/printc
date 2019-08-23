@@ -2,11 +2,12 @@
 # coding: utf8
 
 """
-__init__.py
-Date: 08-21-2019
-
-Description:
+Import the definitions for the printc module
 """
+
+from .main import printc
+
+__version__ = 'v1.0'
 
 
 if __name__ == "__main__":

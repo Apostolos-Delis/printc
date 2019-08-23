@@ -13,8 +13,8 @@ Description: Implementation of CodeGen class that generates ANSI codes
 
 
 # if __name__ == "__main__":
-from constants import COLORS, STYLES
-from constants import START
+from .constants import COLORS, STYLES
+from .constants import START
 # else:
     # from .constants import COLORS, STYLES
     # from .constants import START
