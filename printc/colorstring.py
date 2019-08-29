@@ -21,6 +21,7 @@ class ColorString:
     escape codes in correct locations
     """
 
+    # pylint: disable=too-many-arguments
     def __init__(self, string: str, color="none", highlight="none",
                  bold=False, fade=False, blink=False, underline=False):
         """
@@ -55,12 +56,12 @@ class ColorString:
         :param blink: boolean to make text blink or not
         :param underline: boolean to make text underlined or not
         """
-        assert isinstance(color, str), "color must be of type str"
-        assert isinstance(highlight, str), "highlight must be of type str"
-        assert isinstance(bold, bool), "bold must be of type bool"
-        assert isinstance(fade, bool), "fade must be of type bool"
-        assert isinstance(underline, bool), "underline must be of type bool"
-        assert isinstance(blink, bool), "blink must be of type bool"
+        ColorString._check_type(color, str)
+        ColorString._check_type(highlight, str)
+        ColorString._check_type(bold, bool)
+        ColorString._check_type(fade, bool)
+        ColorString._check_type(underline, bool)
+        ColorString._check_type(blink, bool)
 
         self._code = CodeGen(color=color.lower(),
                              highlight=highlight.lower(),
@@ -71,6 +72,13 @@ class ColorString:
         regex_pattern = re.compile("{{(.+?)}}")
         string = re.sub(regex_pattern, self._format_string, string)
         self._formatted_str = f"{code}{string}{END}"
+
+    @staticmethod
+    def _check_type(val, specified_type):
+        """Raises a TypeError if val is not the specified type"""
+        if not isinstance(val, specified_type):
+            raise TypeError((f"Invalid Type: {val}, is not of type: "
+                             f"{specified_type}"))
 
     def __str__(self) -> str:
         return self._formatted_str
